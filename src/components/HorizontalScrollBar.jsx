@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useContext } from 'react';
 import { Box, Typography } from '@mui/material'
 import BodyPart from './BodyPart'
@@ -6,6 +6,7 @@ import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import RightArrowIcon from '../assets/icons/right-arrow.png';
 import LeftArrowIcon from '../assets/icons/left-arrow.png';
 import ExerciseCard from './ExerciseCard';
+import Loader from './Loader';
 
 const LeftArrow = () => {
     const { scrollPrev } = useContext(VisibilityContext);
@@ -27,21 +28,38 @@ const RightArrow = () => {
     );
 };
 
-const HorizontalScrollBar = ({ data, bodyPart, setBodyPart, isBodyParts }) => (
-    <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-        {data?.map((item) => (
-            <Box
-                key={item.id || item}
-                itemId={item.id || item}
-                title={item.id || item}
-                m="0 30px"
-            >
-                {isBodyParts ?
-                    <BodyPart item={item} setBodyPart={setBodyPart} bodyPart={bodyPart} />
-                    : <ExerciseCard exercise={item} />}
-            </Box>
-        ))}
-    </ScrollMenu>
-)
+const HorizontalScrollBar = ({ data, bodyPart, setBodyPart, isBodyParts }) => {
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 3000)
+    }, [])
+
+    if (isLoading) {
+        return (
+            <Loader />
+        )
+    }
+
+    return (
+        <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow} className="scroll-menu">
+            {data?.map((item) => (
+                <Box
+                    key={item.id || item}
+                    itemId={item.id || item}
+                    title={item.id || item}
+                    m="0 30px"
+                >
+                    {isBodyParts ?
+                        <BodyPart item={item} setBodyPart={setBodyPart} bodyPart={bodyPart} />
+                        : <ExerciseCard exercise={item} />}
+                </Box>
+            ))}
+        </ScrollMenu>
+
+    )
+}
 
 export default HorizontalScrollBar;

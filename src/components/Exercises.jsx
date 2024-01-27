@@ -2,9 +2,11 @@ import { Stack, Typography, Box, Pagination } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import ExerciseCard from './ExerciseCard'
 import { fetchData, exerciseOptions } from '../utils/fetchData';
+import Loader from './Loader';
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const itemsPerPage = 9;
 
   useEffect(() => {
@@ -20,6 +22,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         console.log(exercisesData)
       }
       setExercises(exercisesData)
+      setIsLoading(false)
     };
 
     changeBodyPart()
@@ -44,6 +47,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
       id="exercises"
     >
       <Typography variant='h3' textAlign="center" mb="40px">Showing Results</Typography>
+      {isLoading && <Loader />}
       <Stack
         justifyContent="center"
         alignItems="center"

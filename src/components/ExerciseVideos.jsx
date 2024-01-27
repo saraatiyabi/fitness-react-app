@@ -1,12 +1,25 @@
 import { Box, Typography, Stack } from '@mui/material'
-import React from 'react'
+import React, { useState,useEffect } from 'react'
+import Loader from './Loader'
 
 const ExerciseVideos = ({ exerciseVideos, name }) => {
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 4000)
+  }, [])
+
+  if (isLoading) {
+    return (
+      <Loader />
+    )
+  }
   return (
     <Box p="20px" sx={{ marginTop: { lg: "100px", xs: "30px" } }}>
       <Typography marginBottom="30px" sx={{ fontSize: { lg: "36px", xs: "25px" } }}>
-        watch <span style={{color: "#ff2625", textTransform: "capitalize"}}>{name}</span> exercise videos
+        watch <span style={{ color: "#ff2625", textTransform: "capitalize" }}>{name}</span> exercise videos
       </Typography>
       <Stack justifyContent="flex-start" alignItems="center" flexWrap="wrap" sx={{ flexDirection: { lg: "row" }, gap: { lg: "40px", xs: "30px" } }}>
         {

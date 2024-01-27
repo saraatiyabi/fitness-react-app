@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, Stack, Typography } from '@mui/material';
 import BodyPartImage from '../assets/icons/body-part.png';
 import TargetImage from '../assets/icons/target.png';
 import EquipmentImage from '../assets/icons/equipment.png';
+import Loader from './Loader';
 
 const Detail = ({ exerciseDetail }) => {
     const { bodyPart, equipment, gifUrl, id, name, target, secondaryMuscles, instructions } = exerciseDetail;
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 4000)
+    }, [])
 
     const extraDetails = [
         {
@@ -22,6 +30,12 @@ const Detail = ({ exerciseDetail }) => {
         },
     ]
 
+
+    if (isLoading) {
+        return (
+            <Loader />
+        )
+    }
     return (
         <Stack sx={{ flexDirection: { lg: "row" }, alignItems: "center", gap: "50px", p: "20px 50px" }} >
             <img src={gifUrl} alt={name} loading="lazy" className="detail-image" />

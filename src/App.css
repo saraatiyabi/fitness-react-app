@@ -10,9 +10,15 @@ body {
 
 }
 
-::-webkit-scrollbar {
-  width: 0px;
+/* ::-webkit-scrollbar {
+  width: 10px;
+  color: #FF2625;
+} */
+
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar{
+  display: none;
 }
+
 
 .right-arrow,
 .left-arrow {
