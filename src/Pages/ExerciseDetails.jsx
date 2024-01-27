@@ -31,6 +31,7 @@ const ExerciseDetails = () => {
             setSameEquipmentExercises(equipmentExercisesData)
         }
         fetchExercisesDetail();
+        window.scrollTo({ top: 0, behavior: "smooth" })
     }, [id])
 
     return (
